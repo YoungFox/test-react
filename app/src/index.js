@@ -5,7 +5,11 @@ import './index.css';
 
 
 function Test(props){
-	return (<div>{props.name} 你好啊</div>);
+	function handleClick(e){
+		e.preventDefault();
+		console.log('I am clicked');
+	};
+	return (<div onClick={handleClick}>{props.name} 你好啊</div>);
 }
 
 class Clock extends React.Component {
@@ -41,6 +45,25 @@ class Clock extends React.Component {
 	}
 } 
 
+class TestEvent extends React.Component{
+	constructor(props) {
+	  super(props);
+	
+	  this.state = {'on' : true};
+	}
+
+	handleClick = ()=>{
+		this.setState(prevState =>({
+			on: !prevState.on
+		}));
+	}
+
+	render(){
+		return (
+			<div onClick={this.handleClick}>{this.state.on ? '开' : '关'}</div>
+		)
+	}
+}
 
 ReactDOM.render(
 	<div>
@@ -52,6 +75,7 @@ ReactDOM.render(
 	  <Test name="wen" />
 	  <Test name="liang" />
 	  <Clock name="clock"/>
+	  <TestEvent />
   	</div>,
   document.getElementById('root')
 );
