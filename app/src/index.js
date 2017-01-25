@@ -81,6 +81,62 @@ function Greeting(props){
 	return <GuestGreeting />;
 }
 
+function LoginBtn(props){
+	const isLoggedIn = props.isLoggedIn;
+	if(isLoggedIn){
+		return <button value="退出" onClick={props.onClick}>退出</button>;
+	}
+	return <button value="登录" onClick={props.onClick}>登录</button>;
+}
+
+function Err(props){
+	if(!props.err){
+		return null;
+	}
+	return <strong>错误</strong>
+}
+
+class LoginCtroll extends React.Component{
+	constructor(props) {
+	  super(props);
+	  
+	  this.state = {isLoggedIn: false};
+	}
+
+	clickLogin = () => {
+		this.setState({
+			isLoggedIn: true
+		});
+	}
+
+	clickLogout = () => {
+		this.setState({
+			isLoggedIn: false
+		});
+	}
+
+	render(){
+		let button = <LoginBtn isLoggedIn={this.state.isLoggedIn} onClick={this.state.isLoggedIn?this.clickLogout:this.clickLogin} />;
+		// if(this.state.isLoggedIn){
+		// 	button =  <LoginBtn isLoggedIn={this.state.isLoggedIn} />;
+		// }else{
+		// 	button =  <button value="登录" onClick={this.clickLogin}>登录</button>;
+		// }
+		// console.log(button);
+		return (
+			// {button}
+			<div>
+			{button}
+			<Greeting  isLoggedIn={this.state.isLoggedIn} />
+			<Err err={false} />
+			</div>
+		)
+		// return (
+		// 	<LoginBtn isLoggedIn={this.state.isLoggedIn} onClick={this.state.isLoggedIn?this.clickLogout:this.clickLogin} />
+		// );
+	}
+}
+
 ReactDOM.render(
 	<div>
 	  <App >
@@ -92,7 +148,7 @@ ReactDOM.render(
 	  <Test name="liang" />
 	  <Clock name="clock"/>
 	  <TestEvent />
-	  <Greeting isLoggedIn={false} />
+	  <LoginCtroll />
   	</div>,
   document.getElementById('root')
 );
