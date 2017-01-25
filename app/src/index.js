@@ -65,6 +65,22 @@ class TestEvent extends React.Component{
 	}
 }
 
+function UserGreeting(){
+	return (<h1>用户，你好！</h1>);
+}
+
+function GuestGreeting(){
+	return (<h1>访客，你好！</h1>);
+}
+
+function Greeting(props){
+	const isLoggedIn = props.isLoggedIn;
+	if(isLoggedIn){
+		return <UserGreeting />;
+	}
+	return <GuestGreeting />;
+}
+
 ReactDOM.render(
 	<div>
 	  <App >
@@ -76,6 +92,7 @@ ReactDOM.render(
 	  <Test name="liang" />
 	  <Clock name="clock"/>
 	  <TestEvent />
+	  <Greeting isLoggedIn={false} />
   	</div>,
   document.getElementById('root')
 );
