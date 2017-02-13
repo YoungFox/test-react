@@ -117,25 +117,81 @@ class LoginCtroll extends React.Component{
 
 	render(){
 		let button = <LoginBtn isLoggedIn={this.state.isLoggedIn} onClick={this.state.isLoggedIn?this.clickLogout:this.clickLogin} />;
-		// if(this.state.isLoggedIn){
-		// 	button =  <LoginBtn isLoggedIn={this.state.isLoggedIn} />;
-		// }else{
-		// 	button =  <button value="登录" onClick={this.clickLogin}>登录</button>;
-		// }
-		// console.log(button);
 		return (
-			// {button}
 			<div>
 			{button}
 			<Greeting  isLoggedIn={this.state.isLoggedIn} />
 			<Err err={false} />
 			</div>
 		)
-		// return (
-		// 	<LoginBtn isLoggedIn={this.state.isLoggedIn} onClick={this.state.isLoggedIn?this.clickLogout:this.clickLogin} />
-		// );
 	}
 }
+
+let arr = [1,2,3,4,5];
+let list = arr.map((number) => 
+	<li key={number.toString()}>{number}</li>
+);
+
+function ListItem(props) {
+  const value = props.value;
+  return (
+    // Wrong! There is no need to specify the key here:
+    <li key={value.toString()}>
+      {value}
+    </li>
+  );
+}
+
+
+function NumberList(obj){
+	const numbers = obj.numbers;
+	return (
+		<ul>
+			{numbers.map((number) =>
+				<ListItem key={number.toString()} value={number} />
+
+				)
+			}
+		</ul>
+	);
+}
+
+
+class Form extends React.Component{
+	constructor(props) {
+		super(props);
+
+		this.state = {inp:'' ,select:1, txt:'12'};
+		this.submit = this.submit.bind(this);
+		this.change = this.change.bind(this);
+	}
+
+	submit(){
+		alert(this.state.value);
+	}
+	change(e){
+		const target = e.target;
+		this.setState({[target.name] : target.value});
+	}
+	
+	render(){
+		return (
+			<form>
+				<label>Name:<input type='text' name="inp" value={this.state.inp} onChange={this.change} /></label>
+				<label>Name1:<textarea type='text' name="txt" value={this.state.txt} onChange={this.change} /></label>
+				<label>选择:<select name="select" value={this.state.select} onChange={this.change} >
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+				</select></label>
+				<input type='submit' onSubmit={this.submit} />
+			</form>
+		)
+	}
+};
 
 ReactDOM.render(
 	<div>
@@ -149,6 +205,11 @@ ReactDOM.render(
 	  <Clock name="clock"/>
 	  <TestEvent />
 	  <LoginCtroll />
+	  <ul>
+	  	{list}
+	  </ul>
+	  <Form />
+	  {NumberList({numbers:[1,2,3,4,5,6,7]})}
   	</div>,
   document.getElementById('root')
 );
