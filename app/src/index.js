@@ -284,6 +284,63 @@ class Caculate extends React.Component{
 	}
 }
 
+class Wrap extends React.Component{
+	constructor(props) {
+	  super(props);
+	
+	  this.state = {};
+	}
+
+	render(){
+		return(
+			<div>
+				{this.props.children}
+			</div>
+		)
+	}
+}
+
+function Inner(props){
+	return(
+		<Wrap>
+			<h1>{props.title}</h1>
+		</Wrap>
+	)
+}
+
+function SInner(){
+	return(
+		<Inner title="123"></Inner>
+	)
+}
+
+function Con(){
+	return(
+		<span>人民大学</span>
+	)
+}
+function Tel(){
+	return(
+		<span>28111009002</span>
+	)
+}
+
+
+function Foot(props){
+	return(
+		<div>
+			{props.left}
+			{props.right}
+		</div>
+	)
+}
+
+function DrawFoot(){
+	return(
+		<Foot left={<Tel />} right={<Con />}></Foot>
+	)
+}
+
 ReactDOM.render(
 	<div>
 	  <App >
@@ -303,6 +360,9 @@ ReactDOM.render(
 	  {NumberList({numbers:[1,2,3,4,5,6,7]})}
 
 	  <Caculate />
+	  <Inner title="我是标题"></Inner>
+	  <SInner></SInner>
+	  <DrawFoot></DrawFoot>
   	</div>,
   document.getElementById('root')
 );
