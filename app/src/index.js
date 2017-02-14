@@ -341,6 +341,45 @@ function DrawFoot(){
 	)
 }
 
+class CustomTextInput extends React.Component{
+	constructor(props) {
+	  super(props);
+	
+	  this.state = {};
+	  this.focus = this.focus.bind(this);
+	}
+
+	focus(){
+		this.textInput.focus();
+	}
+	render(){
+		return(
+			<div>
+				<input
+				ref={(input) => this.textInput = input} />
+				<input
+				type="button"
+				value="输入框获取焦点"
+				onClick={this.focus}
+				/>
+				<input type="text" onFocus={this.focus} />
+			</div>
+		);
+	}
+}
+
+class AutoFocusTextInput extends React.Component{
+	componentDidMount(){
+		this.textInput.focus();	
+	}
+
+	render(){
+		return (
+			<CustomTextInput ref={(input) => this.textInput = input}/>
+		)
+	}
+}
+
 ReactDOM.render(
 	<div>
 	  <App >
@@ -363,6 +402,8 @@ ReactDOM.render(
 	  <Inner title="我是标题"></Inner>
 	  <SInner></SInner>
 	  <DrawFoot></DrawFoot>
+	  <CustomTextInput />
+	  <AutoFocusTextInput />
   	</div>,
   document.getElementById('root')
 );
