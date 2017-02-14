@@ -362,7 +362,7 @@ class CustomTextInput extends React.Component{
 				value="输入框获取焦点"
 				onClick={this.focus}
 				/>
-				<input type="text" onFocus={this.focus} />
+				<input type="text" onFocus={this.focus} data-i={"<3"}/>
 			</div>
 		);
 	}
@@ -378,6 +378,25 @@ class AutoFocusTextInput extends React.Component{
 			<CustomTextInput ref={(input) => this.textInput = input}/>
 		)
 	}
+}
+
+class Greet extends React.Component{
+	constructor(props) {
+	  super(props);
+	
+	  this.state = {};
+	}
+	render(){
+		return(<div></div>);
+	}
+}
+
+Greet.propTypes = {
+  name: React.PropTypes.string
+}
+
+function TestGreeting(){
+	return(<Greet name='124' />);
 }
 
 ReactDOM.render(
@@ -404,6 +423,12 @@ ReactDOM.render(
 	  <DrawFoot></DrawFoot>
 	  <CustomTextInput />
 	  <AutoFocusTextInput />
+	  <div />
+	  <div></div>
+	  <div>{true}</div>
+	  <div>{true && <p>1234</p>}</div>
+	  <div>{0 && <p>5678</p>}</div>
+	  <div>{String(0)}</div>
   	</div>,
   document.getElementById('root')
 );
