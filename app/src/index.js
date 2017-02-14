@@ -193,6 +193,97 @@ class Form extends React.Component{
 	}
 };
 
+
+function BoillingVerdict(value){
+	if(value > 100){
+		return (
+			<p>水开了</p>
+		);
+	}else{
+		return (
+			<p>水没开</p>
+		);
+	}
+}
+
+class TxtPanel extends React.Component{
+	constructor(props) {
+	  super(props);
+	  this.kv = {
+	  	c:'摄氏',
+	  	f:'华氏'
+	  }
+	  this.change = this.change.bind(this);
+	}
+
+	change(e){
+		this.props.onChange(e.target.value);
+	}
+
+	render(){
+		return (
+			<label>{this.kv[this.props.name]}
+				<input value={this.props.value} onChange={this.change}/>
+			</label>
+		)
+	}
+}
+
+function convertToC(v){
+	return (v - 32) * 5 / 9;
+}
+
+function convertToF(v){
+	return (v * 9 / 5) + 32;
+}
+
+function doConvert(v,fn){
+	let num = parseFloat(v);
+	if(isNaN(num)){
+		return '';
+	}
+
+	let a = fn(v);
+
+	return a;
+}
+
+class Caculate extends React.Component{
+	constructor(props) {
+	  super(props);
+	
+	  this.state = {value: '',scale: ''};
+
+	  this.changeC = this.changeC.bind(this);
+	  this.changeF = this.changeF.bind(this);
+	}
+
+	changeC(v){
+		this.setState({scale:'c',value:v});
+	}
+
+	changeF(v){
+		this.setState({scale:'f',value:v});
+	}
+	render(){
+		let value = this.state.value;
+		let valueC = this.state.scale === 'f' ? doConvert(value,convertToC) : value;
+		let valueF = this.state.scale === 'c' ? doConvert(value,convertToF) : value;
+		// console.log(this.state.scale  === 'f');
+
+		// let valueC = 1;
+		// let valueF = 2;
+
+		return (
+			<div>
+				<TxtPanel name="c" value={valueC} onChange={this.changeC} />
+				<TxtPanel name="f" value={valueF} onChange={this.changeF} />
+				{BoillingVerdict(value)}
+			</div>
+		)
+	}
+}
+
 ReactDOM.render(
 	<div>
 	  <App >
@@ -210,6 +301,8 @@ ReactDOM.render(
 	  </ul>
 	  <Form />
 	  {NumberList({numbers:[1,2,3,4,5,6,7]})}
+
+	  <Caculate />
   	</div>,
   document.getElementById('root')
 );
