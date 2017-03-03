@@ -20,6 +20,7 @@ class Clock extends React.Component {
 	}
 
 	componentDidMount(){
+		console.log('mount');
 		this.timerId = setInterval(() => {
 			this.click();
 		},1000);
@@ -398,6 +399,7 @@ Greet.propTypes = {
 function TestGreeting(){
 	return(<Greet name='124' />);
 }
+
 
 ReactDOM.render(
 	<div>
